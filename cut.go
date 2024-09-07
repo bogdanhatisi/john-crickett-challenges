@@ -15,14 +15,14 @@ func main() {
 	}
 
 	// Parse arguments
-	desiredField, fileToOpen, err := parseArguments(args)
+	desiredField, fileToOpen, delimiter, err := parseArguments(args)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	// Process the file
-	if err := processFile(fileToOpen, desiredField); err != nil {
+	if err := processFile(fileToOpen, desiredField, delimiter); err != nil {
 		fmt.Println("Error processing file:", err)
 	}
 }

@@ -51,8 +51,8 @@ f1
 ```
 
 ### Step 2: Support the `-d` option for custom delimiters
-- [ ] Extend your code to support the `-d` option to allow the user to specify what character to use as the delimiter between fields.
-- [ ] If no delimiter is provided, default to using a tab (`\t`).
+- [x] Extend your code to support the `-d` option to allow the user to specify what character to use as the delimiter between fields.
+- [x] If no delimiter is provided, default to using a tab (`\t`).
 
 Example with comma as the delimiter:
 ```bash
@@ -81,4 +81,51 @@ f0
 10
 15
 20
+```
+
+
+### Step 3: Support for the `-f` Option
+
+In this step, your goal is to add support for the `-f` option. This option specifies a **list of fields** to be printed out. The output fields are separated by a single occurrence of the field delimiter character.
+
+The field list is a **comma-separated** or **whitespace-separated** list of fields, i.e., `-f1,2` or `-f "1 2"`. The first field is field number 1.
+
+#### Checklist:
+
+- [ ] Add support for the `-f` option to specify a list of fields.
+- [ ] The field list should be **comma-separated** or **whitespace-separated**.
+- [ ] Ensure that the output fields are separated by a single occurrence of the **field delimiter**.
+- [ ] Ensure correct handling of field ranges (i.e., print specified fields for each line).
+
+Example 1: Comma-Separated Field List
+
+```bash
+cut -f1,2 sample.tsv
+```
+
+Expected Output:
+```
+f0      f1
+0       1
+5       6
+10      11
+15      16
+20      21
+```
+
+In this case, the fields 1 and 2 are printed for each line, separated by a tab (default delimiter).
+
+Example 2: Whitespace-Separated Field List with Custom Delimiter
+
+```bash
+cut -d, -f"1 2" fourchords.csv | head -n5
+```
+
+Expected Output:
+```
+Song title,Artist
+"10000 Reasons (Bless the Lord)",Matt Redman and Jonas Myrin
+"20 Good Reasons",Thirsty Merc
+"Adore You",Harry Styles
+"Africa",Toto
 ```

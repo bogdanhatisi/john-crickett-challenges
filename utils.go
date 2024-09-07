@@ -10,35 +10,42 @@ import (
 )
 
 // parseArguments parses the command-line arguments and returns the desired field and the file to open.
-func parseArguments(args []string) (int, string, error) {
+func parseArguments(args []string) (int, string, string, error) {
 	reNumber := regexp.MustCompile(`\d+`)
 	var desiredField int
 	var fileToOpen string
+	var delimiter string = "\t"
 
 	for _, arg := range args[1:] {
 		if strings.Contains(arg, "-f") {
 			fieldStr := reNumber.FindString(arg)
 			field, err := strconv.Atoi(fieldStr)
 			if err != nil {
-				return 0, "", fmt.Errorf("invalid field number: %v", err)
+				return 0, "", "", fmt.Errorf("invalid field number: %v", err)
 			}
 			desiredField = field
 		} else if strings.Contains(arg, ".") { // Assuming file contains an extension
 			fileToOpen = arg
+		} else if strings.Contains(arg,"-d"){
+			if len(arg) > 1 {
+				delimiter = string(arg[len(arg)-1])
+			} else {
+				return 0, "", "", fmt.Errorf("delimiter flag -d provided without a delimiter character")
+			}
 		} else {
-			return 0, "", fmt.Errorf("invalid argument: %s", arg)
+			return 0, "","", fmt.Errorf("invalid argument: %s", arg)
 		}
 	}
 
 	if desiredField == 0 || fileToOpen == "" {
-		return 0, "", fmt.Errorf("please provide a valid column number and at least one argument")
+		return 0, "","", fmt.Errorf("please provide a valid column number and at least one argument")
 	}
 
-	return desiredField, fileToOpen, nil
+	return desiredField, fileToOpen, delimiter, nil
 }
 
 // processFile opens the file and prints the desired field for each line.
-func processFile(fileToOpen string, desiredField int) error {
+func processFile(fileToOpen string, desiredField int, delimiter string) error {
 	file, err := os.Open(fileToOpen)
 	if err != nil {
 		return fmt.Errorf("error opening file: %v", err)
@@ -48,7 +55,7 @@ func processFile(fileToOpen string, desiredField int) error {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		fields := strings.Split(line, "\t")
+		fields := strings.Split(line, delimiter)
 
 		// Ensure the desired field index is within range
 		if desiredField > len(fields) {
