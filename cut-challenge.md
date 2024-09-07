@@ -129,3 +129,42 @@ Song title,Artist
 "Adore You",Harry Styles
 "Africa",Toto
 ```
+
+### Step 4: Support for Standard Input Stream (`stdin`)
+
+In this step, your goal is to support reading input from the **standard input stream** if no filename is provided or if the single dash `-` is provided as the filename.
+
+## Checklist:
+- [ ] Add support for reading from the standard input (`stdin`) when no filename is provided.
+- [ ] Add support for using `-` to represent standard input.
+- [ ] Ensure that data is processed correctly from the input stream when reading from `stdin`.
+
+Example 1: Using Piped Input from `tail`
+
+```bash
+tail -n5 fourchords.csv | cut -d, -f"1 2"
+```
+
+Expected Output:
+```
+"Young Volcanoes",Fall Out Boy
+"You Found Me",The Fray
+"You'll Think Of Me",Keith Urban
+"You're Not Sorry",Taylor Swift
+"Zombie",The Cranberries
+```
+
+Example 2: Using - for Standard Input
+
+```bash
+tail -n5 fourchords.csv | cut -d, -f"1 2" -
+```
+
+Expected Output:
+```
+"Young Volcanoes",Fall Out Boy
+"You Found Me",The Fray
+"You'll Think Of Me",Keith Urban
+"You're Not Sorry",Taylor Swift
+"Zombie",The Cranberries
+```
