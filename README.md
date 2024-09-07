@@ -1,2 +1,2 @@
 # JohnCrickettChallenges
-Solving John Crickett's Challenges in order to learn Go
+Solving John Crickett's Challenges in Go
