@@ -92,10 +92,10 @@ The field list is a **comma-separated** or **whitespace-separated** list of fiel
 
 #### Checklist:
 
-- [ ] Add support for the `-f` option to specify a list of fields.
-- [ ] The field list should be **comma-separated** or **whitespace-separated**.
-- [ ] Ensure that the output fields are separated by a single occurrence of the **field delimiter**.
-- [ ] Ensure correct handling of field ranges (i.e., print specified fields for each line).
+- [x] Add support for the `-f` option to specify a list of fields.
+- [x] The field list should be **comma-separated** or **whitespace-separated**.
+- [x] Ensure that the output fields are separated by a single occurrence of the **field delimiter**.
+- [x] Ensure correct handling of field ranges (i.e., print specified fields for each line).
 
 Example 1: Comma-Separated Field List
 

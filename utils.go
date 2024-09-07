@@ -9,62 +9,104 @@ import (
 	"strings"
 )
 
+func convertStringListToInt(stringList []string) []int {
+
+	var intSlice []int
+	for _, str := range stringList {
+
+		num, err := strconv.Atoi(str)
+		if err != nil {
+			fmt.Println("Error converting string to int", err)
+			continue
+		}
+
+		intSlice = append(intSlice, num)
+
+	}
+
+	return intSlice
+}
+
+func contains(nums []int, target int) bool {
+	for _, num := range nums {
+		if num == target {
+			return true // Target found
+		}
+	}
+	return false // Target not found
+}
+
+func getMaxFieldNumber(desiredFields []int) int {
+	max := 0
+	for _, field := range desiredFields {
+		if field > max {
+			max = field
+		}
+	}
+	return max
+}
+
 // parseArguments parses the command-line arguments and returns the desired field and the file to open.
-func parseArguments(args []string) (int, string, string, error) {
+func parseArguments(args []string) ([]int, string, string, error) {
 	reNumber := regexp.MustCompile(`\d+`)
-	var desiredField int
+	var desiredFields []int
 	var fileToOpen string
 	var delimiter string = "\t"
 
 	for _, arg := range args[1:] {
 		if strings.Contains(arg, "-f") {
-			fieldStr := reNumber.FindString(arg)
-			field, err := strconv.Atoi(fieldStr)
-			if err != nil {
-				return 0, "", "", fmt.Errorf("invalid field number: %v", err)
-			}
-			desiredField = field
+			fieldStr := reNumber.FindAllString(arg, -1)
+			desiredFields = convertStringListToInt(fieldStr)
 		} else if strings.Contains(arg, ".") { // Assuming file contains an extension
 			fileToOpen = arg
-		} else if strings.Contains(arg,"-d"){
+		} else if strings.Contains(arg, "-d") {
 			if len(arg) > 1 {
 				delimiter = string(arg[len(arg)-1])
 			} else {
-				return 0, "", "", fmt.Errorf("delimiter flag -d provided without a delimiter character")
+				return nil, "", "", fmt.Errorf("delimiter flag -d provided without a delimiter character")
 			}
 		} else {
-			return 0, "","", fmt.Errorf("invalid argument: %s", arg)
+			return nil, "", "", fmt.Errorf("invalid argument: %s", arg)
 		}
 	}
 
-	if desiredField == 0 || fileToOpen == "" {
-		return 0, "","", fmt.Errorf("please provide a valid column number and at least one argument")
+	if len(desiredFields) == 0 || fileToOpen == "" {
+		return nil, "", "", fmt.Errorf("please provide a valid column number and at least one argument")
 	}
 
-	return desiredField, fileToOpen, delimiter, nil
+	return desiredFields, fileToOpen, delimiter, nil
 }
 
 // processFile opens the file and prints the desired field for each line.
-func processFile(fileToOpen string, desiredField int, delimiter string) error {
+func processFile(fileToOpen string, desiredFields []int, delimiter string) error {
 	file, err := os.Open(fileToOpen)
 	if err != nil {
 		return fmt.Errorf("error opening file: %v", err)
 	}
 	defer file.Close()
 
+	var maxFieldNumber int = getMaxFieldNumber(desiredFields)
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		fields := strings.Split(line, delimiter)
 
-		// Ensure the desired field index is within range
-		if desiredField > len(fields) {
-			fmt.Printf("Field %d out of range for line: %s\n", desiredField, line)
-			continue
-		}
+		for index, field := range fields {
 
-		// Print the selected field
-		fmt.Printf("Field %d: %s\n", desiredField, fields[desiredField-1])
+			if contains(desiredFields, index+1) {
+
+				// Print the selected field
+				fmt.Print(field)
+				if index+1 != maxFieldNumber {
+					fmt.Print(delimiter)
+				}
+			}
+
+		}
+		fmt.Println()
+		// Ensure the desired field index is within range
+
 	}
 
 	if err := scanner.Err(); err != nil {
