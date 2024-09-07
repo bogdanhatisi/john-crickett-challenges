@@ -41,12 +41,14 @@ cut -f2 sample.tsv
 ```
 
 Expected output:
+```
 f1
 1
 6
 11
 16
 21
+```
 
 ### Step 2: Support the `-d` option for custom delimiters
 - [ ] Extend your code to support the `-d` option to allow the user to specify what character to use as the delimiter between fields.
@@ -58,11 +60,13 @@ cut -f1 -d, fourchords.csv | head -n5
 ```
 
 Expected output:
+```
 Song title
 "10000 Reasons (Bless the Lord)"
 "20 Good Reasons"
 "Adore You"
 "Africa"
+```
 
 Example with default tab delimiter:
 ```bash
@@ -70,9 +74,11 @@ cut -f1 sample.tsv
 ```
 
 Expected output:
+```
 f0
 0
 5
 10
 15
 20
+```
