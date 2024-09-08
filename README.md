@@ -4,7 +4,6 @@
 
 This repository contains my solutions to John Crickett's challenges. Each challenge focuses on creating a tool that performs a specific task, implemented in Go.
 
----
 
 ## 📜 Solved Challenges
 
@@ -16,7 +15,6 @@ This repository contains my solutions to John Crickett's challenges. Each challe
      - Custom delimiter support (`-d` flag)
      - Handles both file input and standard input (`stdin`)
 
----
 
 ## 🚧 In Progress Challenges
 
@@ -24,7 +22,6 @@ This repository contains my solutions to John Crickett's challenges. Each challe
    - Currently working on building a Go version of the `wc` Unix command.
   
 
----
 
 ## 🌟 Upcoming Challenges
 
@@ -45,7 +42,6 @@ Each challenge has its own folder and README with detailed instructions on how t
 - [Go Documentation](https://golang.org/doc/)  
    Official documentation for the Go programming language, covering everything from basic syntax to advanced topics.
 
----
 
 ## 🙏 Thank You
 
