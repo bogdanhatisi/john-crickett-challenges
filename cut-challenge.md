@@ -135,9 +135,9 @@ Song title,Artist
 In this step, your goal is to support reading input from the **standard input stream** if no filename is provided or if the single dash `-` is provided as the filename.
 
 ## Checklist:
-- [ ] Add support for reading from the standard input (`stdin`) when no filename is provided.
-- [ ] Add support for using `-` to represent standard input.
-- [ ] Ensure that data is processed correctly from the input stream when reading from `stdin`.
+- [x] Add support for reading from the standard input (`stdin`) when no filename is provided.
+- [x] Add support for using `-` to represent standard input.
+- [x] Ensure that data is processed correctly from the input stream when reading from `stdin`.
 
 Example 1: Using Piped Input from `tail`
 
@@ -168,3 +168,16 @@ Expected Output:
 "You're Not Sorry",Taylor Swift
 "Zombie",The Cranberries
 ```
+
+### Step 5: Building a Command-Line Data Engineering Pipeline
+
+In this step, we will revisit the first coding challenge and use our **wc** tool, combining it with our new **cut** tool to build a simple command-line data engineering pipeline. We'll test it by determining how many **unique artists** are in the dataset, leveraging the power of Unix command-line tools.
+
+## Checklist:
+- [ ] Create the wc tool in another module
+- [ ] Combine the `cut` and `uniq` tools with `wc` to count the unique entries.
+
+## Command Example:
+
+```bash
+cut -f2 -d, fourchords.csv | uniq | wc -l

@@ -7,7 +7,6 @@ import (
 
 func main() {
 	args := os.Args
-	fmt.Println("All arguments:", args)
 
 	if len(args) < 3 {
 		fmt.Println("Please provide a valid column number and at least one argument.")

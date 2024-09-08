@@ -50,7 +50,7 @@ func getMaxFieldNumber(desiredFields []int) int {
 func parseArguments(args []string) ([]int, string, string, error) {
 	reNumber := regexp.MustCompile(`\d+`)
 	var desiredFields []int
-	var fileToOpen string
+	var fileToOpen string = "-"
 	var delimiter string = "\t"
 
 	for _, arg := range args[1:] {
@@ -65,6 +65,8 @@ func parseArguments(args []string) ([]int, string, string, error) {
 			} else {
 				return nil, "", "", fmt.Errorf("delimiter flag -d provided without a delimiter character")
 			}
+		} else if strings.Compare(arg, "-") == 0 {
+			fileToOpen = arg
 		} else {
 			return nil, "", "", fmt.Errorf("invalid argument: %s", arg)
 		}
@@ -79,15 +81,20 @@ func parseArguments(args []string) ([]int, string, string, error) {
 
 // processFile opens the file and prints the desired field for each line.
 func processFile(fileToOpen string, desiredFields []int, delimiter string) error {
-	file, err := os.Open(fileToOpen)
-	if err != nil {
-		return fmt.Errorf("error opening file: %v", err)
-	}
-	defer file.Close()
-
 	var maxFieldNumber int = getMaxFieldNumber(desiredFields)
+	var scanner *bufio.Scanner
+	if fileToOpen != "-" {
 
-	scanner := bufio.NewScanner(file)
+		file, err := os.Open(fileToOpen)
+		if err != nil {
+			return fmt.Errorf("error opening file: %v", err)
+		}
+		defer file.Close()
+		scanner = bufio.NewScanner(file)
+	} else {
+		scanner = bufio.NewScanner(os.Stdin)
+	}
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		fields := strings.Split(line, delimiter)
