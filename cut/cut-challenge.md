@@ -181,3 +181,20 @@ In this step, we will revisit the first coding challenge and use our **wc** tool
 
 ```bash
 cut -f2 -d, fourchords.csv | uniq | wc -l
+```
+
+## ⚙️ How to Run
+
+The `cut` executable is already included in the repository. You can either run it directly using the examples in the steps above or build it yourself.
+
+### To run the provided executable:
+
+```bash
+./cut -f2 sample.tsv
+```
+### To build and then run it yourself:
+
+```
+go build -o cut
+```
+
