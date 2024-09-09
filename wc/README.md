@@ -62,10 +62,10 @@ In this step, your goal is to extend **`ccwc`** to support the command-line opti
 
 #### Checklist:
 
-- [ ] Accept the `-l` option from the command line.
-- [ ] Open and read the file specified by the user.
-- [ ] Count the total number of **lines** in the file.
-- [ ] Output the line count followed by the filename.
+- [x] Accept the `-l` option from the command line.
+- [x] Open and read the file specified by the user.
+- [x] Count the total number of **lines** in the file.
+- [x] Output the line count followed by the filename.
 
 Example:
 
@@ -76,4 +76,26 @@ ccwc -l test.txt
 Expected Output:
 ```
 7145 test.txt
+```
+
+### Step 3: Counting the Number of Words
+
+In this step, your goal is to extend **`ccwc`** to support the command-line option **`-w`** that outputs the number of **words** in a file.
+
+#### Checklist:
+
+- [x] Accept the `-w` option from the command line.
+- [x] Open and read the file specified by the user.
+- [x] Count the total number of **words** in the file.
+- [x] Output the word count followed by the filename.
+
+Example:
+
+```bash
+ccwc -w test.txt
+```
+
+Expected Output:
+```
+58164 test.txt
 ```

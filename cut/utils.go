@@ -57,8 +57,6 @@ func parseArguments(args []string) ([]int, string, string, error) {
 		if strings.Contains(arg, "-f") {
 			fieldStr := reNumber.FindAllString(arg, -1)
 			desiredFields = convertStringListToInt(fieldStr)
-		} else if strings.Contains(arg, ".") { // Assuming file contains an extension
-			fileToOpen = arg
 		} else if strings.Contains(arg, "-d") {
 			if len(arg) > 1 {
 				delimiter = string(arg[len(arg)-1])
@@ -66,6 +64,8 @@ func parseArguments(args []string) ([]int, string, string, error) {
 				return nil, "", "", fmt.Errorf("delimiter flag -d provided without a delimiter character")
 			}
 		} else if strings.Compare(arg, "-") == 0 {
+			fileToOpen = arg
+		} else if strings.Contains(arg, ".") { // Assuming file contains an extension
 			fileToOpen = arg
 		} else {
 			return nil, "", "", fmt.Errorf("invalid argument: %s", arg)
