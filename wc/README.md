@@ -31,7 +31,7 @@ Like all good software engineering, we’re zero-indexed! In this step, you’re
 
 I’ll leave you to set up your IDE/editor and programming language of choice. After that, here’s what I’d like you to do to be ready to test your solution:
 
--[ ] Download the test text and save it as test.txt to use for testing.
+-[x] Download the test text and save it as test.txt to use for testing.
 
 ### Step 1: Writing a Simple Version of `wc`
 
@@ -39,10 +39,10 @@ In this step, your goal is to write a simple version of `wc`, let's call it **`c
 
 #### Checklist:
 
-- [ ] Accept the `-c` option from the command line.
-- [ ] Open and read the file specified by the user.
-- [ ] Count the total number of **bytes** in the file.
-- [ ] Output the byte count followed by the filename.
+- [x] Accept the `-c` option from the command line.
+- [x] Open and read the file specified by the user.
+- [x] Count the total number of **bytes** in the file.
+- [x] Output the byte count followed by the filename.
 
 
 Example:
@@ -54,4 +54,26 @@ ccwc -c test.txt
 Expected Output:
 ```
 342190 test.txt
+```
+
+### Step 2: Counting the Number of Lines
+
+In this step, your goal is to extend **`ccwc`** to support the command-line option **`-l`** that outputs the number of **lines** in a file.
+
+#### Checklist:
+
+- [ ] Accept the `-l` option from the command line.
+- [ ] Open and read the file specified by the user.
+- [ ] Count the total number of **lines** in the file.
+- [ ] Output the line count followed by the filename.
+
+Example:
+
+```bash
+ccwc -l test.txt
+```
+
+Expected Output:
+```
+7145 test.txt
 ```
