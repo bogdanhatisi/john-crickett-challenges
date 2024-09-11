@@ -38,7 +38,7 @@ This repository contains my solutions to John Crickett's challenges. Each challe
 ### 1. [Wc Challenge](./wc)
    - Currently working on building a Go version of the `wc` Unix command.
 
-### 2. Add tests to all challenges
+### 🔁 Adding tests to all challenges
    - **Goal**: Gradually add a comprehensive set of tests to ensure each challenge is fully covered.
    - **Why**: Writing tests helps make the code more reliable and easier to maintain. With good test coverage, I can refactor or add new features without worrying about breaking existing functionality.
    - **Status**: Ongoing, with tests being added progressively.
