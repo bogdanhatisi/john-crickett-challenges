@@ -8,11 +8,6 @@ import (
 func main() {
 	args := os.Args
 
-	if len(args) < 2 {
-		fmt.Println("Please provide a file name")
-		return
-	}
-	
 	desiredFlags, fileName, err := parseArguments(args)
 
 	if err != nil {
