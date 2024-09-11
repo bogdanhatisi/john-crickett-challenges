@@ -81,6 +81,7 @@ func processFile(fileToOpen string, desiredFlags []string) error {
 		byteCount += n
 
 		// Count characters, properly handling UTF-8 rune boundaries between chunks
+		//! CHECK WHY THERE ARE 2 MORE CHARACTERS THAN EXPECTED
 		charsInChunk, remaining := countCharsFromChunk(chunk, leftover)
 		charCount += charsInChunk
 		leftover = remaining
