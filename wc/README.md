@@ -111,7 +111,7 @@ You can learn more about programming for locales [here](https://learn.microsoft.
 - [x] Accept the `-m` option from the command line.
 - [x] Open and read the file specified by the user.
 - [x] Count the total number of **characters** (not bytes) in the file.
-- [ ] Handle multibyte characters correctly, depending on the locale.
+- [x] Handle multibyte characters correctly, depending on the locale.
 - [x] Output the character count followed by the filename.
 
 Example:
@@ -154,7 +154,7 @@ In this final step, your goal is to support reading from standard input if no fi
 
 - [x] Support reading from **standard input** when no filename is specified.
 - [x] If no filename is provided, the program should read from standard input and behave as if it was provided a file.
-- [] Ensure that the program correctly handles input from standard input when options such as `-l`, `-w`, `-c`, or `-m` are provided.
+- [x] Ensure that the program correctly handles input from standard input when options such as `-l`, `-w`, `-c`, or `-m` are provided.
 - [x] Ensure that the output is properly formatted, just as it would be when reading from a file.
   
 ### Example:
