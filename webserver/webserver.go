@@ -3,8 +3,35 @@ package main
 import (
 	"fmt"
 	"net"
+	"os"
+	"path/filepath"
 	"strings"
 )
+
+// getContentType returns the MIME type based on the file extension
+func getContentType(filePath string) string {
+	ext := strings.ToLower(filepath.Ext(filePath))
+	switch ext {
+	case ".html":
+		return "text/html"
+	case ".txt":
+		return "text/plain"
+	case ".css":
+		return "text/css"
+	case ".js":
+		return "application/javascript"
+	case ".json":
+		return "application/json"
+	case ".png":
+		return "image/png"
+	case ".jpg", ".jpeg":
+		return "image/jpeg"
+	case ".gif":
+		return "image/gif"
+	default:
+		return "application/octet-stream" // Default for unknown types
+	}
+}
 
 func main() {
 	// Listen for incoming connections on port 80
@@ -53,25 +80,35 @@ func handleConnection(conn net.Conn) {
 
 		// Check that the request line has at least 3 parts (e.g., GET, /path, HTTP/1.1)
 		if len(requestLineParts) >= 3 {
-			method := requestLineParts[0]
 			path := requestLineParts[1]
 
-			fmt.Printf("Method: %s, Path: %s\n", method, path)
+				// Construct the file path
+				if path == "/"{
+					path = "/index.html"
+				}
+				filePath := "www" + path
+				// Read the file from the www directory
+				body, err := os.ReadFile(filePath)
+				if err != nil {
+					// Handle file not found or read error
+					response := "HTTP/1.1 404 Not Found\r\n\r\nFile not found."
+					conn.Write([]byte(response))
+					return
+				}
 
-			// Now you can construct the response body using the path
-			body := fmt.Sprintf("You requested the path: %s", path)
-			contentLength := len(body)
+				// Determine the content type
+				contentType := getContentType(filePath)
 
-			// Prepare a valid HTTP/1.1 response
-			response := fmt.Sprintf("HTTP/1.1 200 OK\r\n"+
-				"Content-Type: text/plain\r\n"+
-				"Content-Length: %d\r\n"+
-				"Connection: close\r\n"+
-				"\r\n"+
-				"%s", contentLength, body)
+				// Now you can construct the response body using the file contents
+				contentLength := len(body)
+				response := fmt.Sprintf("HTTP/1.1 200 OK\r\n"+
+					"Content-Type: %s\r\n"+
+					"Content-Length: %d\r\n"+
+					"Connection: close\r\n"+
+					"\r\n"+
+					"%s", contentType, contentLength, body)
 
-			// Write the response back to the client
-			conn.Write([]byte(response))
+				conn.Write([]byte(response))
+			}
 		}
 	}
-}

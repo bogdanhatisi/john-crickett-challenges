@@ -67,3 +67,47 @@ Which you will do by sending that data back over the socket. Once you have that 
 - [x] Parse the request line to extract the method, path, and HTTP version
 - [x] Send back the minimum HTTP response
 - [x] Close the socket after sending the response
+
+### Step 2: Serving Your First HTML Document
+
+In this step your goal is to serve your first HTML document. When the request is for a valid path, your web server should return the document at that path and the HTTP status code 200 as in step 1.
+
+### Security Considerations
+Pause for a moment and think about the security risks you might have introduced in your simple server.
+
+(SPOILER)
+#### Security Risks in Web Server Implementation
+
+1. **Directory Traversal Attacks**: 
+   - Attackers can access files outside the intended directory.
+
+2. **Improper Input Validation**: 
+   - Vulnerable to injection attacks if user input is not validated.
+
+3. **Denial of Service (DoS)**: 
+   - Server can be overwhelmed by too many requests.
+
+4. **Lack of HTTPS**: 
+   - Data transmitted is unencrypted, susceptible to eavesdropping.
+
+5. **Error Handling**: 
+   - Detailed error messages can reveal server structure and vulnerabilities.
+
+6. **Resource Exhaustion**: 
+   - Large payloads can consume server resources.
+
+7. **Insecure File Permissions**: 
+   - Overly permissive permissions can allow unauthorized access.
+
+8. **Lack of Authentication and Authorization**: 
+   - Anyone can access any resource without restrictions.
+
+9. **Cross-Site Scripting (XSS)**: 
+   - Dynamic content without proper sanitization can lead to XSS attacks.
+
+
+#### Checklist:
+- [x] Create an HTML file named `index.html` in the `www` directory.
+- [x] Modify the server to serve the `index.html` file for requests to `/` and `/index.html`.
+- [x] Ensure the server returns a 404 status code for invalid paths.
+- [x] Test the server with valid and invalid paths to confirm correct behavior.

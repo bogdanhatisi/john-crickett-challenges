@@ -3,13 +3,23 @@ package main
 import (
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 )
 
 func TestHandleConnection(t *testing.T) {
+	// Create a temporary file in the www directory for testing
+	testFilePath := "www/testfile.html"
+	testFileContent := "<html><body><h1>Test File</h1></body></html>"
+	err := os.WriteFile(testFilePath, []byte(testFileContent), 0644)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(testFilePath) // Clean up after the test
+
 	// Create a request to send to the server
-	req, err := http.NewRequest("GET", "http://localhost/", nil)
+	req, err := http.NewRequest("GET", "http://localhost/testfile.html", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -21,10 +31,15 @@ func TestHandleConnection(t *testing.T) {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Simulate the connection handling
 		path := r.URL.Path
-		response := "You requested the path: " + path
+		filepath := "www" + path
+		body, err := os.ReadFile(filepath)
+		if err != nil {
+			http.Error(w, "File not found", http.StatusNotFound)
+			return
+		}
 		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte(response))
+		w.Header().Set("Content-Type", "text/html")
+		w.Write(body)
 	})
 
 	// Serve the HTTP request
@@ -36,9 +51,8 @@ func TestHandleConnection(t *testing.T) {
 	}
 
 	// Check the response body
-	expected := "You requested the path: /"
+	expected := testFileContent
 	if strings.TrimSpace(rr.Body.String()) != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
 	}
 }
-
