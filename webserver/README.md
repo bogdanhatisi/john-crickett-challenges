@@ -111,3 +111,21 @@ Pause for a moment and think about the security risks you might have introduced 
 - [x] Modify the server to serve the `index.html` file for requests to `/` and `/index.html`.
 - [x] Ensure the server returns a 404 status code for invalid paths.
 - [x] Test the server with valid and invalid paths to confirm correct behavior.
+
+### Step 3: Handling Multiple Clients Concurrently
+
+In this step, your goal is to handle multiple clients at a time. After all, in the real world, we don’t want a web server that can only handle one client at a time—that’s just not going to scale.
+
+We want to be able to handle multiple concurrent clients, binding each incoming connection to a new socket and then receiving and sending data over that socket connection. We don’t want one connection to block another, so we’ll need some support for concurrent operations in our server.
+
+Traditionally, this was handled by creating a new thread for each connection. More recently, there has been a focus on using asynchronous frameworks. This boils down to there being an overhead to threads. If you’ve never used threads, now would be a great time to try it out. If you have, then perhaps try the async framework for your stack of choice. There’s an overview of parallelism, concurrency, and asynchrony on the Coding Challenges blog.
+
+You can then test your server by sending it multiple concurrent requests. If you want to see what’s happening, you could make your connection handling thread log its ID and then sleep for 20 seconds before sending the HTML back. This way, you can observe your concurrency in action.
+
+By now, you have a basic web server that can handle multiple concurrent client requests.
+
+#### Checklist:
+- [x] Modify the server to handle multiple concurrent connections.
+- [x] Implement threading or asynchronous handling for each connection (Go Routines).
+- [ ] Log the thread ID or connection ID for each request to observe concurrency.
+- [ ] Test the server with multiple concurrent requests using curl.
