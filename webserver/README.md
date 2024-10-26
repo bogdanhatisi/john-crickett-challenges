@@ -127,5 +127,22 @@ By now, you have a basic web server that can handle multiple concurrent client r
 #### Checklist:
 - [x] Modify the server to handle multiple concurrent connections.
 - [x] Implement threading or asynchronous handling for each connection (Go Routines).
-- [ ] Log the thread ID or connection ID for each request to observe concurrency.
-- [ ] Test the server with multiple concurrent requests using curl.
+- [x] Log the thread ID or connection ID for each request to observe concurrency (Not working in Go).
+- [x] Test the server with multiple concurrent requests using curl.
+
+
+### Step 4: Securing File Access
+
+In this step, your goal is to address some of the issues you hopefully thought of at the end of Step 2. Currently, our server will open a valid file and stream it back to the client. If we’re not careful, clients could provide a path to a file we don’t want to share, such as `/etc/passwd` on a Unix-like system.
+
+Your task for this part of the challenge is to ensure that whatever request path is provided by the client, you only serve documents that are in the `www` directory or its subdirectories. 
+
+Ideally, your server should allow you to specify the location of the `www` folder on startup. Devise some test cases and give it a go!
+
+Once you’ve done that, congratulations 🎉 you’ve built a basic web server that can serve HTML documents!
+
+#### Checklist:
+- [ ] Implement path validation to ensure only files within the `www` directory or its subdirectories are served.
+- [ ] Allow the server to specify the location of the `www` folder on startup.
+- [ ] Create test cases to verify that the server correctly restricts access to files outside the `www` directory.
+- [ ] Test the server with valid paths (within `www`) and invalid paths (outside `www`) to confirm correct behavior.
